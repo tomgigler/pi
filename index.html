@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		    <meta charset="UTF-8">
+		        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+			    <title>Pi Memorization Game</title>
+			        <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+	        input { padding: 10px; font-size: 16px; }
+		        button { padding: 10px; font-size: 16px; cursor: pointer; }
+			        #message { margin-top: 20px; font-size: 18px; font-weight: bold; }
+				        #progress { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+					    </style>
+	</head>
+	<body>
+		    <h1>Pi Memorization Game</h1>
+		        <p id="progress">3.</p>
+			    <p>Enter the next 5 digits of Pi:</p>
+			        <input type="text" id="user_input" maxlength="5" required>
+				    <button id="submit_button" onclick="checkInput()">Submit</button>
+				        <p id="message"></p>
+
+					    <script>
+						            let piDigits = "14159265358979323846264338327950288419716939937510";
+        let currentIndex = 0;
+        let progressDisplay = "3.";
+
+        function checkInput() {
+		           rInput = document.getElementById("user_input").value;
+		            let correctDigits = piDigits.substring(currentIndex, currentIndex + 5);
+		            
+		            if (userInput === correctDigits) {
+				                    progressDisplay += userInput;
+				                    document.getElementById("progress").textContent = progressDisplay;
+				                    document.getElementById("message").textContent = "Correct! Enter the next five digits.";
+				                    currentIndex += 5;
+				                } else {
+							                document.getElementById("message").textContent = "Oops! The correct answer was " + correctDigits + ". Try again!";
+							                currentIndex = 0; // Reset if incorrect
+							                progressDisplay = "3.";
+							                document.getElementById("progress").textContent = progressDisplay;
+							            }
+		            document.getElementById("user_input").value = "";
+		        }
+
+        document.getElementById("user_input").addEventListener("keypres.key === "Enter") {
+		                event.preventDefault();
+		                document.getElementById("submit_button").click();
+		            }
+        });
+    </script>
+	</body>
+</html>
+
