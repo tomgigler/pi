@@ -28,7 +28,12 @@
         function checkInput() {
 		            let userInput = document.getElementById("user_input").value;
 		            let correctDigits = piDigits.substring(currentIndex, currentIndex + 5);
-		            
+
+		            if (userInput.length !== 5 || isNaN(userInput)) {
+						document.getElementById("message").textContent = "⚠️ Please enter exactly 5 digits.";
+						return;
+					}
+
 		            if (userInput === correctDigits) {
 				                    progressDisplay += userInput;
 				                    document.getElementById("progress").textContent = progressDisplay;
