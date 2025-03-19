@@ -1,68 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		    <meta charset="UTF-8">
-		        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-			    <title>Pi Memorization Game</title>
-			        <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-	        input { padding: 10px; font-size: 16px; }
-		        button { padding: 10px; font-size: 16px; cursor: pointer; }
-			        #message { margin-top: 20px; font-size: 18px; font-weight: bold; }
-				        #progress { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
-					    </style>
-	</head>
-	<body>
-		    <h1>Gage's Pi Memorization Game</h1>
-		        <p id="progress">3.</p>
-			    <p>Enter the next 5 digits of Pi:</p>
-			        <input type="text" id="user_input" maxlength="5" required>
-				    <button onclick="checkInput()">Submit</button>
-				        <p id="message"></p>
-				        <p id="message2"></p>
-				        <p id="message3"></p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pi Memorization Game</title>
+        <style>
+            body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+            input { padding: 10px; font-size: 16px; }
+            button { padding: 10px; font-size: 16px; cursor: pointer; }
+            #message { margin-top: 20px; font-size: 18px; font-weight: bold; }
+            #progress { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        </style>
+    </head>
+    <body>
+        <h1>Gage's Pi Memorization Game</h1>
+        <p id="progress">3.</p>
+        <p>Enter the next 5 digits of Pi:</p>
+        <input type="text" id="user_input" maxlength="5" required>
+        <button onclick="checkInput()">Submit</button>
+        <p id="message"></p>
+        <p id="message2"></p>
+        <p id="message3"></p>
+        <script>
+            let piDigits = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482";
+            let currentIndex = 0;
+            let progressDisplay = "3.";
+            let correctSoFar = progressDisplay;
 
-					    <script>
-						            let piDigits = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482";
-        let currentIndex = 0;
-        let progressDisplay = "3.";
-	let correctSoFar = progressDisplay;
+            function checkInput() {
+                let userInput = document.getElementById("user_input").value;
+                let correctDigits = piDigits.substring(currentIndex, currentIndex + 5);
 
-        function checkInput() {
-		            let userInput = document.getElementById("user_input").value;
-		            let correctDigits = piDigits.substring(currentIndex, currentIndex + 5);
+                if (userInput.length !== 5 || isNaN(userInput)) {
+                    document.getElementById("message").textContent = "⚠️ Please enter exactly 5 digits.";
+                    return;
+                }
 
-		            if (userInput.length !== 5 || isNaN(userInput)) {
-						document.getElementById("message").textContent = "⚠️ Please enter exactly 5 digits.";
-						return;
-					}
+                if (userInput === correctDigits) {
+                    progressDisplay += userInput;
+                    correctSoFar = progressDisplay;
+                    document.getElementById("progress").textContent = progressDisplay;
+                    document.getElementById("message").textContent = "Correct! Enter the next five digits.";
+                    currentIndex += 5;
+                    document.getElementById("message2").textContent = currentIndex + " digits so far. Keep going!";
+                    document.getElementById("message3").textContent = "";
+                } else {
+                    document.getElementById("message").textContent = "Oops! You said " + userInput + ".  The correct answer was " + correctDigits + ". Try again!";
+                    document.getElementById("message2").textContent = "But wow! You got to " + currentIndex + " digits!";
+                    document.getElementById("message3").textContent = correctSoFar;
+                    currentIndex = 0; // Reset if incorrect
+                    progressDisplay = "3.";
+                    document.getElementById("progress").textContent = progressDisplay;
+                }
+                document.getElementById("user_input").value = "";
+            }
 
-		            if (userInput === correctDigits) {
-				                    progressDisplay += userInput;
-				    		    correctSoFar = progressDisplay;
-				                    document.getElementById("progress").textContent = progressDisplay;
-				                    document.getElementById("message").textContent = "Correct! Enter the next five digits.";
-				                    currentIndex += 5;
-				                    document.getElementById("message2").textContent = currentIndex + " digits so far. Keep going!";
-				                    document.getElementById("message3").textContent = "";
-				                } else {
-							                document.getElementById("message").textContent = "Oops! You said " + userInput + ".  The correct answer was " + correctDigits + ". Try again!";
-    						                        document.getElementById("message2").textContent = "But wow! You got to " + currentIndex + " digits!";
-    						                        document.getElementById("message3").textContent = correctSoFar;
-							                currentIndex = 0; // Reset if incorrect
-							                progressDisplay = "3.";
-							                document.getElementById("progress").textContent = progressDisplay;
-							            }
-		            document.getElementById("user_input").value = "";
-		        }
+            document.getElementById("user_input").addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    checkInput();
+                }
+            });
 
-		document.getElementById("user_input").addEventListener("keydown", function(event) {
-			if (event.key === "Enter") {
-				checkInput();
-			}
-		});
-
-    </script>
-	</body>
+        </script>
+    </body>
 </html>
-
