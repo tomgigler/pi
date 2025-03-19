@@ -6,7 +6,12 @@
         <title>Pi Memorization Game</title>
         <style>
             body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-            input { padding: 10px; font-size: 16px; }
+            input {
+                display: block;  /* Ensures the input takes up the full width available */
+                margin: 10px auto;  /* Centers it */
+                padding: 10px;
+                font-size: 16px;
+            }
             button { padding: 10px; font-size: 16px; cursor: pointer; }
             #message { margin-top: 20px; font-size: 18px; font-weight: bold; }
             #progress { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
@@ -21,6 +26,10 @@
         <p id="message"></p>
         <p id="message2"></p>
         <p id="message3"></p>
+        <label>
+            <input type="checkbox" id="toggleCheckbox" onclick="toggleInput()"> Specify start index
+        </label>
+        <input type="text" id="textInput" style="display: none;" placeholder="0">
         <script>
             let piDigits = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482";
             let currentIndex = 0;
@@ -29,6 +38,14 @@
 
             function checkInput() {
                 let userInput = document.getElementById("user_input").value;
+                var input = document.getElementById("textInput");
+                var checkbox = document.getElementById("toggleCheckbox");
+                if(checkbox.checked) {
+                    currentIndex = parseInt(input.value);
+                    checkbox.checked = false;
+                    progressDisplay = "3." + piDigits.substring(0, currentIndex);
+                    input.style.display = "none";
+                }
                 let correctDigits = piDigits.substring(currentIndex, currentIndex + 5);
 
                 if (userInput.length !== 5 || isNaN(userInput)) {
@@ -61,6 +78,15 @@
                 }
             });
 
+            function toggleInput() {
+                var input = document.getElementById("textInput");
+                var checkbox = document.getElementById("toggleCheckbox");
+                input.style.display = checkbox.checked ? "block" : "none";
+                if(! checkbox.checked) {
+                    input.value = 0;
+                }
+            }
+            
         </script>
     </body>
 </html>
